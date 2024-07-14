@@ -1,2 +1,119 @@
 problems solved:
+1) diameter of binary tree--> levels on left + levels on right --> do this for every node 
+//code 
+    
+    // int maxDia = 0;
+    // int levels(TreeNode* root){
+    //     if(root==NULL )return 0;
+    //     return 1+ max(levels(root->left), levels(root->right));
+    // }
+
+    // int diameterOfBinaryTree(TreeNode* root) {
+    //     if(root==NULL) return 0;
+    //     int Dia = levels(root->left) + levels(root->right);
+    //     maxDia = max(Dia,maxDia);
+    //     diameterOfBinaryTree(root->left);
+    //     diameterOfBinaryTree(root->right);
+    //     return maxDia;
+    // }
+
+2) invert binary tree:  --> swap nodes and call recursion to swap the nodes of swapped nodes
+
+// TreeNode* invertTree(TreeNode* root) {
+//         if(root==NULL) return NULL;
+//         TreeNode* temp = root->left;
+//         root->left = root->right;
+//         root->right = temp;
+//         invertTree(root->left);
+//         invertTree(root->right);
+//         return root;
+//     }
+
+3) subtree of another tree--> pass each node of main tree to helper function i any node matches the root of subtree then
+helper function recurse on the both tree if they are identical it returns true
+
+//  bool isIdentical(TreeNode* root, TreeNode* subRoot) {
+//         if (root == NULL && subRoot == NULL) return true;
+//         if (root == NULL || subRoot == NULL) return false;
+//         if (root->val != subRoot->val) return false;
+//         return isIdentical(root->left, subRoot->left) && isIdentical(root->right, subRoot->right);
+      
+//     }
+//     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+//         if (subRoot == NULL)  return true;
+//         if (root == NULL) return false;
+//         if(isIdentical(root,subRoot)) return true;
+//         return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+//     }
+
+4) symmetric tree
+
+//  bool issym(TreeNode* p, TreeNode* q){
+//         if(p==NULL && q==NULL) return true;
+//         if(p==NULL || q==NULL) return false;
+
+//         if(p->val != q->val) return false;
+//         bool lst = issym(p->left, q->right);
+//         if(lst==false) return false;
+
+//         bool rst = issym(p->right , q->left);
+//         if(rst == false) return false;
+
+//         return true;
+//     }
+
+//     bool isSymmetric(TreeNode* root) {
+//         return(issym(root->left,root->right));
+//     }
+
+5) LCA of BST --> just check is p q is in left or right
+
+//  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+//         if(root->val > p->val && root->val > q->val) return lowestCommonAncestor(root->left,p,q);
+//         else if(root->val < p->val && root->val < q->val) return lowestCommonAncestor(root->right,p,q);
+//          else return root;
+//     }
+
+6) pre and suc of bst -> find the key and call the presuc function for that node
+
+//  void presuc(Node* root, Node*& pre, Node*& suc) {
+//     if (root == NULL) return;
+    
+//     if (root->left != NULL) {
+//         Node* temp = root->left;
+//         while (temp->right != NULL) {
+//             temp = temp->right;
+//         }
+//         pre = temp;
+//     }
+    
+//     if (root->right != NULL) {
+//         Node* temp = root->right;
+//         while (temp->left != NULL) {
+//             temp = temp->left;
+//         }
+//         suc = temp;
+//     }
+// }
+// void findPreSuc(Node* root, Node*& pre, Node*& suc, int key) {
+//     if (root == NULL) return;
+    
+//     if (root->key == key) {
+//         presuc(root, pre, suc);
+//         return;
+//     }
+    
+//     if (root->key > key) {
+//         suc = root;
+//         findPreSuc(root->left, pre, suc, key);
+//     } else {
+//         pre = root;
+//         findPreSuc(root->right, pre, suc, key);
+//     }
+// }
+
 concepts revised:
+lowest common ansester of bt and bst
+predecessor and successor
+
+
