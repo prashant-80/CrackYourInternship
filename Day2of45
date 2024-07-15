@@ -1,0 +1,14 @@
+1)sorted array to BST--> binary search technique lo mid hi
+
+2) flatten BT to LinkedList -> take preorder ans store in a vector the map right to next element ans left to null
+
+3) isAnagram(using map) --> check frequency of every char
+
+4) twoSum(using map)  -> store index and val in map 
+
+5) unique number of occurences (maps and sets)
+
+6)find maximum numbers of string pairs (sets)
+
+7) number of distints numbers after reverse(lc)
+
