@@ -7,5 +7,5 @@
 8)merge sorted array --> three pointers (i,j,k)
 9)majority element --> hash maps or sort the array and return the middle element
 10)find all dublicates in array --> store freq in map ans pushback ele which has freq greater than 1
-
+11)count nice pairs -->transfrom array and use map to store count and update count before inserting in maps if element is already present in map
 
