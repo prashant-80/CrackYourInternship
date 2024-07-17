@@ -1,0 +1,80 @@
+1) spiral matrix
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int>res;
+        //right to left 
+        //top to bottom
+        //left to right
+        //bootom to top
+        int direction = 0; //left to right;
+        int left = 0;
+        int right = matrix[0].size()-1;
+        int top = 0;
+        int bottom = matrix.size()-1;
+        while(left<=right && top<=bottom){
+            if(direction == 0 ){ //left to right
+                for(int col = left; col<=right;col++){
+                    res.push_back(matrix[top][col]);
+                }
+                top++;
+            }
+             else if(direction==1){
+                for(int row=top;row<=bottom;row++)
+                {
+                    res.push_back(matrix[row][right]);
+                }
+                right--;
+            }
+            else if(direction==2)
+            {
+                for(int col=right;col>=left;col--){
+                    res.push_back(matrix[bottom][col]);
+                }
+                bottom--;
+            }
+            else{
+                for(int row=bottom;row>=top;row--){
+                    res.push_back(matrix[row][left]);
+                }
+                left++;
+            }
+            direction = (direction+1) %4;
+        }
+        return res;
+    }
+};
+
+2)valid parenthesis
+class Solution {
+public:
+    bool isValid(string str) {
+        stack<char> st;
+        for(int i=0;i<str.size();i++){
+            if(str[i]=='[' ||  str[i]=='(' ||  str[i]=='{'){
+                st.push(str[i]);
+            }
+            else if(str[i]==']' && !st.empty() && st.top()=='['){
+                st.pop();
+            }
+            else if(str[i]=='}' && !st.empty() && st.top()=='{'){
+                st.pop();
+            }
+            else if(str[i]==')' && !st.empty() && st.top()=='('){
+                st.pop();
+            }
+            else{
+                return false;
+            }
+
+        }
+        return st.empty();
+
+    }
+};
+
+3)all dublicates character in the string --> simple use maps
+
+4)find the index of the first occurence of the string --> basic logic
+
+5) rotate image --> transpose the matrix than reverse each row
