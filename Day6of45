@@ -1,0 +1,121 @@
+1)sum of left leaves
+int helper(TreeNode* root, int& sum) {
+        if (root == NULL)
+            return 0;
+        if (root->left && !root->left->left && !root->left->right)
+            sum += root->left->val;
+        helper(root->left, sum);
+        helper(root->right, sum);
+        return sum;
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        int sum = 0;
+        return helper(root, sum);
+    }
+
+    2)minimum absolute difference between bst nodes
+     void helper(TreeNode* root, vector<int> &ans){
+        if(root==NULL) return ;
+        helper(root->left,ans);
+        ans.push_back(root->val);
+        helper(root->right,ans);
+    }
+    int getMinimumDifference(TreeNode* root) {
+        vector<int> ans;
+        helper(root,ans);
+        int mini = INT_MAX;
+        for(int i=1;i<ans.size();i++){
+            mini = min(mini, ans[i]-ans[i-1]);
+        }
+        return mini;
+    }
+
+    3)binary tree level order traversal
+     vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        queue<TreeNode*> q;
+        if (!root)
+            return res;
+        q.push(root);
+
+        while (!q.empty()) {
+            vector<int> v;
+            int s = q.size();
+            for (int i = 0; i < s; i++) {
+                TreeNode* temp = q.front();
+                q.pop();
+                v.push_back(temp->val);
+                if (temp->left)
+                    q.push(temp->left);
+                if (temp->right)
+                    q.push(temp->right);
+            }
+            res.push_back(v);
+        }
+        return res;
+    }
+};
+
+4)zigzag traversal binary trees
+int Level(TreeNode* root) {
+        if (root == NULL)
+            return 0;
+        return 1 + max(Level(root->left), Level(root->right));
+    }
+
+    void NthLevel(TreeNode* root, int curr, int level,vector<int> &v) {
+        if (root == NULL)
+            return;
+        if (curr == level) {
+           v.push_back(root->val);
+            return;
+        }
+        NthLevel(root->left, curr + 1, level,v);
+        NthLevel(root->right, curr + 1, level,v);
+    }
+
+    void NthLevelRev(TreeNode* root, int curr, int level,vector<int> &v) {
+        if (root == NULL)
+            return;
+        if (curr == level) {
+            v.push_back(root->val);
+            return;
+        }
+        NthLevelRev(root->right, curr + 1, level,v);
+        NthLevelRev(root->left, curr + 1, level,v);
+    }
+
+    
+
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        int n = Level(root);
+        for (int i = 1; i <=n; i++) {
+            vector<int> v;
+            if(i%2==0) NthLevelRev(root,1,i,v);
+            else NthLevel(root,1,i,v);
+            ans.push_back(v);
+        }
+        return ans;
+    }
+
+5)path sum 3
+ void helper(TreeNode* root, long long sum, int& count) {
+        if (root == NULL)
+            return;
+            if (sum == (long long)root->val) {
+                count++;
+            }
+        helper(root->right, sum - (long long)(root->val),count);
+        helper(root->left, sum - (long long)(root->val),count);
+    }
+
+
+    int pathSum(TreeNode* root, int targetSum) {
+        if(root == NULL) return 0;
+        int count = 0;
+        helper(root, targetSum,count);
+        count+=pathSum(root->left, targetSum)+ pathSum(root->right,targetSum);
+        return count;
+
+    }

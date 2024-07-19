@@ -1,0 +1,87 @@
+1) binary tree path --> maintain a string and push every root to it 
+class Solution {
+public:
+    void helper(TreeNode* root, vector<string> &ans , string s){
+        if(root==NULL) return ;
+        string a = to_string(root->val);
+        if(root->left==NULL && root->right==NULL){
+            s+=a;
+            ans.push_back(s);
+        }
+        helper(root->left,ans,s+a+"->");
+        helper(root->right,ans,s+a+"->");
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> ans;
+        helper(root,ans,"");
+        return ans;
+    }
+};
+2) same tree --> just compare trees 
+  bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL && q==NULL) return true;
+        if(p==NULL || q==NULL) return false;
+        if(p->val!=q->val) return false;
+        
+        bool lst = isSameTree(p->left,q->left);
+        if(lst==false) return false;
+        bool rst = isSameTree(p->right,q->right);
+        if(rst==false) return false;
+        return true;
+        
+            }
+3) balanced binary tree --> levels in left -levels in right <=1 ->do this for every node
+ int levels(TreeNode* root){
+        if(root==NULL) return 0;
+        return 1+max(levels(root->left),levels(root->right));
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root==NULL) return true;
+        int lft = levels(root->left);
+        int rht = levels(root->right);
+        if(abs(lft-rht) > 1) return false;
+        bool lst = isBalanced(root->left);
+        if(lst==false) return false;
+        bool rst = isBalanced(root->right);
+        if(rst==false) return false;
+        return true;
+        
+    }
+4) Range sum bst  --> apply property of bst 
+int helper(TreeNode* root, int low,int high,int& sum){
+        if(root==NULL) return 0;
+        if(root->val < low ) helper(root->right,low,high,sum);
+        else if(root->val > high ) helper(root->left,low,high,sum);
+        if(root->val >= low && root->val<=high) {
+            sum+=root->val;
+            helper(root->left,low,high,sum);
+        helper(root->right,low,high,sum);
+        }
+        
+        return sum;
+    }
+    int rangeSumBST(TreeNode* root, int low, int high) {
+        int sum = 0;
+        return helper(root,low,high,sum);
+
+    }
+
+5) merge two BT --> logical(if root1 empty return root2 and viceversa and append it in left and right)
+6) binary trees right side view 
+7) path sum
+8) lowest common ansestor of binary tree
+9) validate BST
+  void helper(TreeNode* root, vector<int> &ans){
+        if(root==NULL) return;
+        helper(root->left,ans);
+        ans.push_back(root->val);
+        helper(root->right,ans);
+    }
+    bool isValidBST(TreeNode* root) {
+            vector<int> ans;
+            helper(root,ans);
+            for(int i=0;i<ans.size()-1;i++){
+                if(ans[i]>=ans[i+1]) return false;
+            }
+            return true;
+    }
